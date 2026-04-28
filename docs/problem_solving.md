@@ -60,7 +60,7 @@ Algorithm:
 
 
 
-------------------------- FILE ----------------------
+------------------------- FILE ------------------------------------
 ### fun 01 
 Input:  filename
 Output : An integer: 0 for success, -1 for failure 
@@ -72,7 +72,7 @@ Algorithm:
 
 
 
------------------------- STRING ---------------------
+------------------------ STRING ----------------------------------
 ### fun 14 : remove Spaces
 Input:   array of characters
 Output :  same string but without any whitespace
@@ -89,3 +89,13 @@ Algorithm:
 .Check if (start + len) is within the bounds of strlen(src). If not, exit
 .from i = 0 to len - 1 : Copying dest[i] = src[start + i]
 .dest[len] = '\0' to mark the end of the string
+
+
+### FUN 15 : compare Ignore Case
+Input:  Two strings
+Output : .0: If the strings are identical (ignoring case)
+         . integer: If the strings are different
+Algorithm:
+.Convert the current character of both strings to lowercase using tolower()
+.If the lowercase characters are not equal, stop
+.If the loop ends, return the difference between the final characters (to ensure both strings ended at the same time)

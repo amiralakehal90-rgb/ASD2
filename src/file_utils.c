@@ -10,5 +10,5 @@ int createBinaryFile(const char* filename) {
     }
     // إغلاق الملف فوراً
     fclose(file);
-    return 0; // نجاح
+    return 0;
 }

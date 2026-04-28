@@ -1,5 +1,6 @@
  
 #include <string.h>
+#include <ctype.h> 
 
  // fun 14 : remove Spaces
  void removeSpaces(char* s) {
@@ -33,5 +34,16 @@ void substring(const char* src, int start, int len, char* dest) {
 
 // fun 16 : compare Ignore Case
 
+int compareIgnoreCase(const char* a, const char* b) {
+    while (*a != '\0' && *b != '\0') {
+        if (tolower((unsigned char)*a) != tolower((unsigned char)*b)) {
+
+            return tolower((unsigned char)*a) - tolower((unsigned char)*b);
+        }
+        a++;
+        b++;
+    }
+    return tolower((unsigned char)*a) - tolower((unsigned char)*b);
+}
 
 
