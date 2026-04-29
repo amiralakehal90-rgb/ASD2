@@ -69,7 +69,15 @@ Algorithm:
 .If failed, Return -1
 .Else, Close file using fclose() and Return 0
 
-
+### fun 08 Binary File Copy 
+Input: src , dest
+Output : '0' if the coping of file succesfully , '-1' if not 
+Algorithm:
+.Open src in "rb" and dest in "wb"
+.If any file fails to open, exit with an error
+.Read data from 'src' into a 'temp' using 'fread'
+.using 'fwrite' to read into 'dest'
+.Close both file pointers to save data
 
 
 ------------------------ STRING ----------------------------------
@@ -99,3 +107,5 @@ Algorithm:
 .Convert the current character of both strings to lowercase using tolower()
 .If the lowercase characters are not equal, stop
 .If the loop ends, return the difference between the final characters (to ensure both strings ended at the same time)
+
+
