@@ -1,6 +1,7 @@
  
 #include <string.h>
 #include <ctype.h> 
+#include "../include/string_utils.h"     
 
  // fun 14 : remove Spaces
  void removeSpaces(char* s) {
@@ -45,13 +46,7 @@ int compareIgnoreCase(const char* a, const char* b) {
     }
     return tolower((unsigned char)*a) - tolower((unsigned char)*b);
 }
-
-#include "../include/string_utils.h"     
-#include <stdio.h>
-#include <stdlib.h>
-
-#include <ctype.h>
-
+ // fun :
 int countWords(const char* s)
 {
     int count = 0;
