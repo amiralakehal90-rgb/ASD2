@@ -28,6 +28,8 @@ void  printMatrix(int m[][MAX_COLS], int rows, int cols);
 void  transposeMatrix(int m[][MAX_COLS], int rows, int cols, int out[][MAX_COLS]);
 void  addMatrices(int a[][MAX_COLS], int b[][MAX_COLS], int r[][MAX_COLS], int rows, int cols);
 void  multiplyMatrices(int a[][MAX_COLS], int b[][MAX_COLS], int r[][MAX_COLS], int n);
+int sumDiagonal(int m[][MAX_COLS], int n);
+int sumAntiDiagonal(int m[][MAX_COLS], int n);
 
 /* --- Dynamic Array --- */
 int*  createDynamicArray(int capacity);
