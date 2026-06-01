@@ -9,6 +9,18 @@
 #define MAX_QUEUE_SIZE  50
 #define MAX_STRING_LEN  256
 
+#ifndef QUEUE_H
+#define QUEUE_H
+
+#include <stdio.h>
+#include <stdlib.h>
+
+#define MAX_1D 100
+#define MAX_COLS 50
+
+/* Borrow the Node definition from linked_list.h */
+#include "linked_list.h"
+
 /* Node for singly linked list */
 typedef struct Node {
     int data;
@@ -48,3 +60,18 @@ typedef struct {
 } Queue;
 
 #endif
+
+/* Pointer-based Queue (linked list) */
+typedef struct {
+    Node* front;  // first element
+    Node* rear;   // last element
+    int count;
+} Queue;
+
+/* --- QUEUE FUNCTION PROTOTYPES --- */
+int enqueue(Queue* Q, int val);
+int dequeue(Queue* Q);
+int isEmptyQueue(Queue* Q);
+
+#endif /* QUEUE_H */
+
