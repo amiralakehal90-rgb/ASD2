@@ -95,19 +95,7 @@ int copyBinaryFile(const char* src, const char* dest) {
     return 0 ;
 }
 
-// fun:
-int createBinaryFile(const char* filename)
-{
-    FILE *f = fopen(filename, "wb");
-
-    if (f == NULL) {
-        return -1;   
-    }
-
-    fclose(f);
-    return 0;        
-}
-
+// fun 04
 int countRecords(const char* filename) {
     FILE *fp = fopen(filename, "rb"); // فتح الملف للقراءة الثنائية
     if (fp == NULL) return 0;
