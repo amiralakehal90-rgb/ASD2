@@ -343,4 +343,39 @@ void sortListBubble(List* L) {
         }
         lptr = ptr1;
     } while (swapped);
+}    
+
+Node* createNode(int value) {
+    Node* newNode = (Node*)malloc(sizeof(Node));
+    newNode->data = value;
+    newNode->next = NULL;
+    return newNode;
 }
+
+void mergeSortedLists(List* A, List* B, List* result) {
+    Node* pA = A->head;
+    Node* pB = B->head;
+    result->head = NULL;
+    Node* tail = NULL;
+
+    while (pA != NULL || pB != NULL) {
+        int val;
+        if (pA != NULL && (pB == NULL || pA->data <= pB->data)) {
+            val = pA->data;
+            pA = pA->next;
+        } else {
+            val = pB->data;
+            pB = pB->next;
+        }
+
+        Node* newNode = createNode(val);
+        if (result->head == NULL) {
+            result->head = newNode;
+            tail = newNode;
+        } else {
+            tail->next = newNode;
+            tail = newNode;
+        }
+    }
+}
+
