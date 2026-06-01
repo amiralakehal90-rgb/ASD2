@@ -75,3 +75,53 @@ int isEmptyQueue(Queue* Q);
 
 #endif /* QUEUE_H */
 
+/* Node for singly linked list */
+typedef struct Node {
+    int data;
+    struct Node* next;
+} Node;
+
+typedef struct List {
+	Node* head;
+	int size;
+} List ;
+
+/* Node for doubly linked list */
+typedef struct DNode {
+    int data;
+    struct DNode* next;
+    struct DNode* prev;
+} DNode;
+
+/* Pointer-based singly linked list */
+typedef struct {
+    Node* head;   // first element
+    int size;
+} ArrayList;
+
+/* Pointer-based doubly linked list */
+typedef struct {
+    DNode* head;
+    DNode* tail;
+    int size;
+} DLL;
+
+/* Pointer-based Stack (linked list) */
+typedef struct {
+    Node* top;   // top element
+} Stack;
+
+/* Pointer-based Queue (linked list) */
+typedef struct {
+    Node* front;  // first element
+    Node* rear;   // last element
+    int count;
+} Queue;
+/* Structure for Bonus Dataset */
+typedef struct {
+    int id;
+    char name[50];
+    char category[20]; // هذا هو المتغير الذي يبحث عنه الخطأ
+} Record;
+#endif
+
