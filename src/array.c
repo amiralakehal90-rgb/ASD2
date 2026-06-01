@@ -290,3 +290,46 @@ int sumAntiDiagonal(int m[][MAX_COLS], int n) {
     }
     return sum;
 }
+
+void bubbleSort(int arr[], int size) {
+    int i, j, temp, swapped;
+    for (i = 0; i < size - 1; i++) {
+        swapped = 0;
+        for (j = 0; j < size - i - 1; j++) {
+            if (arr[j] > arr[j + 1]) {
+                temp = arr[j];
+                arr[j] = arr[j + 1];
+                arr[j + 1] = temp;
+                swapped = 1;
+            }
+        }
+        if (swapped == 0) break;
+    }
+}
+
+void selectionSort(int arr[], int size) {
+    int i, j, min_idx, temp;
+    for (i = 0; i < size - 1; i++) {
+        min_idx = i;
+        for (j = i + 1; j < size; j++) {
+            if (arr[j] < arr[min_idx])
+                min_idx = j;
+        }
+        temp = arr[min_idx];
+        arr[min_idx] = arr[i];
+        arr[i] = temp;
+    }
+}
+
+void insertionSort(int arr[], int size) {
+    int i, key, j;
+    for (i = 1; i < size; i++) {
+        key = arr[i];
+        j = i - 1;
+        while (j >= 0 && arr[j] > key) {
+            arr[j + 1] = arr[j];
+            j = j - 1;
+        }
+        arr[j + 1] = key;
+    }
+}
