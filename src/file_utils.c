@@ -1,7 +1,6 @@
 
 //fun 01 : createBinaryFile
 int createBinaryFile(const char* filename) {
-
     FILE *file = fopen(filename, "wb");
 
     // التحقق مما إذا كان الملف قد فُتح بنجاح
@@ -11,6 +10,64 @@ int createBinaryFile(const char* filename) {
     // إغلاق الملف فوراً
     fclose(file);
     return 0;
+}
+
+// fun 02
+/*write a single record into a position in a binary file*/ 
+int writeRecord(const char* filename, Record* r)
+{
+    // فتح الملف بوضع الإضافة الثنائية
+    FILE* fp = fopen(filename, "ab");
+
+    // التحقق من نجاح فتح الملف
+    if (fp == NULL)
+        return -1;
+
+    // كتابة السجل في الملف
+    if (fwrite(r, sizeof(Record), 1, fp) != 1)
+    {
+        fclose(fp);
+        return -1;
+    }
+
+    fclose(fp); // غلق الملف
+    return 0;   // نجاح العملية
+}
+
+// fun 03
+/*read a single record from a binary file at a position*/ 
+int readRecord(const char* filename, int index, Record* r)
+{
+    // فتح الملف بوضع القراءة الثنائية
+    FILE* fp = fopen(filename, "rb");
+
+    // التحقق من نجاح فتح الملف
+    if (fp == NULL)
+        return -1;
+
+    // الذهاب إلى نهاية الملف لمعرفة حجمه
+    fseek(fp, 0, SEEK_END);
+    long size = ftell(fp); // حجم الملف بالبايت
+    rewind(fp); // الرجوع إلى بداية الملف
+
+    // حساب عدد السجلات في الملف
+    long totalRecords = size / sizeof(Record);
+
+    // التحقق من صحة الفهرس
+    if (index < 0 || index >= totalRecords)
+    {
+        fclose(fp);
+        return -1;
+    }
+
+    // الانتقال إلى موقع السجل المطلوب
+    fseek(fp, index * sizeof(Record), SEEK_SET);
+
+    // قراءة السجل من الملف
+    fread(r, sizeof(Record), 1, fp);
+
+    fclose(fp); // غلق الملف
+    return 0;   // نجاح العملية
 }
 
 // fun 08 :  copy Binary File
