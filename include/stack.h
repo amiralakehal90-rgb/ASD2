@@ -29,5 +29,7 @@ void freeStack(Stack* S);
 int push(Stack* S, int value);
 
 void initStack(Stack* S);
+void initStack(Stack* S) {
+    S->top = NULL;
 #endif
 
