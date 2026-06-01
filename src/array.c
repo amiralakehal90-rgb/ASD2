@@ -200,3 +200,64 @@ void addMatrices(int a[][MAX_COLS], int b[][MAX_COLS], int r[][MAX_COLS], int ro
         }
     }
 } 
+
+int deleteAt(int arr[], int *size, int pos) {
+    // Shift elements from the right to the left to fill the gap
+    for (int i = pos; i < *size - 1; i++) {
+        arr[i] = arr[i + 1];
+    }
+    // Decrement the size of the array
+    (*size)--;
+    return 0;
+}
+// . Function to find an element's index
+int linearSearch(int arr[], int size, int target) {
+    for (int i = 0; i < size; i++) {
+        if (arr[i] == target) {
+            return i; // Target found
+        }
+    }
+    return -1; // Target not found
+}
+// . Binary Search (Optimized search for sorted arrays)
+int binarySearch(int arr[], int size, int target) {
+    int low = 0, high = size - 1;
+    while (low <= high) {
+        int mid = low + (high - low) / 2;
+        if (arr[mid] == target) return mid;
+        if (arr[mid] < target) low = mid + 1;
+        else high = mid - 1;
+    }
+    return -1;
+}
+int isSymmetric(int m[][MAX_COLS], int n) {
+    int i, j;
+    for (i = 0; i < n; i++) {
+        for (j = 0; j < i; j++) { // نختبر فقط العناصر تحت القطر الرئيسي
+            if (m[i][j] != m[j][i]) {
+                return 0; // بمجرد وجود اختلاف، المصفوفة غير متناظرة
+            }
+        }
+    }
+    return 1; // إذا انتهى التكرار دون اختلاف، فهي متناظرة
+}
+void sortRows(int m[][MAX_COLS], int rows, int cols) {
+    int i, j, k, temp;
+    
+    // نمر على كل صف على حدة
+    for (i = 0; i < rows; i++) {
+        
+        // داخل كل صف (i)، نقوم بعملية الترتيب الفقاعي للعناصر
+        for (j = 0; j < cols - 1; j++) {
+            for (k = 0; k < cols - j - 1; k++) {
+                
+                // إذا كان العنصر الحالي أكبر من الذي يليه، نقوم بالتبديل
+                if (m[i][k] > m[i][k + 1]) {
+                    temp = m[i][k];
+                    m[i][k] = m[i][k + 1];
+                    m[i][k + 1] = temp;
+                }
+            }
+        }
+    }
+}
