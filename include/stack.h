@@ -28,5 +28,6 @@ void freeStack(Stack* S);
 
 int push(Stack* S, int value);
 
+void initStack(Stack* S);
 #endif
 
