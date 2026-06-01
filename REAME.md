@@ -4,14 +4,6 @@
 3. Dhikra Benaissa 
 4. Sarra Amani Dehbi
 5. Ikram kadri 
-##---list of implemented procédures and functions--
-
-\*Benaissa:
-•Initarray/SumArray/AverageArray/InitMatrix/PrintMatrix
-•DeleteByValue/SearchValue/DisplayForward/Front/rear/IsEmpty
-•WriteRecord/ReadRecord
-•my_strcat/my_strcmp/my_strncmp/countVowels/countConsonants
-•findMaxByField/findMinByField
 
 ##---------------how to execute-----------------
 •Run the demo program
