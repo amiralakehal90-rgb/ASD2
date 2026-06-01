@@ -54,6 +54,7 @@ void initListDLL(DLL* L);
 void displayList(List* L);
 void reverseList(List* L);
 void sortListBubble(List* L);
+void mergeSortedLists(List* A, List* B, List* result);
 
 
 #endif
