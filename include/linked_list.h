@@ -51,6 +51,9 @@ int deleteBeginning(List* L);
 int deleteEnd(List* L);
 
 void initListDLL(DLL* L);
+void displayList(List* L);
+void reverseList(List* L);
+void sortListBubble(List* L);
 
 
 #endif
