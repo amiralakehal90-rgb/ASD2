@@ -26,3 +26,42 @@ int enqueue(Queue* Q, int value) {
     // Return 1 for success
     return 1; 
 }
+
+void initQueue(Queue* Q) {
+    Q->front = NULL;
+    Q->rear = NULL;
+}
+
+// إضافة عنصر للنهاية (Enqueue)
+int enqueue(Queue* Q, int value) {
+    Node* newNode = (Node*)malloc(sizeof(Node));
+    if (newNode == NULL) return -1;
+    
+    newNode->data = value;
+    newNode->next = NULL;
+
+    if (Q->rear == NULL) { // إذا كان الطابور فارغاً
+        Q->front = Q->rear = newNode;
+    } else {
+        Q->rear->next = newNode;
+        Q->rear = newNode;
+    }
+    return 1;
+}
+
+// حذف عنصر من البداية (Dequeue)
+int dequeue(Queue* Q) {
+    if (Q->front == NULL) return -1;
+
+    int value = Q->front->data;
+    Node* temp = Q->front;
+    
+    Q->front = Q->front->next;
+    
+    if (Q->front == NULL) {
+        Q->rear = NULL;
+    }
+    
+    free(temp);
+    return value;
+}
