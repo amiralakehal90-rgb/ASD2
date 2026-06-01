@@ -57,5 +57,22 @@ void sortListBubble(List* L);
 void mergeSortedLists(List* A, List* B, List* result);
 
 
+
+typedef struct Node {
+    int data;
+    struct Node* next;
+    struct Node* prev;
+} Node;
+
+typedef struct {
+    Node* head;
+    Node* tail;
+    int size;
+} DLL;
+
+int insertEndDLL(DLL* L, int value);
+
+#endif
+
 #endif
 
