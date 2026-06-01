@@ -72,3 +72,4 @@ int front(Queue* Q)
     return Q->data[Q->front];
 
     return Q->data[(Q->rear - 1 + MAX) % MAX];
+}
