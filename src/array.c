@@ -261,3 +261,32 @@ void sortRows(int m[][MAX_COLS], int rows, int cols) {
         }
     }
 }
+
+#include "matrix.h"
+
+void multiplyMatrices(int a[][MAX_COLS], int b[][MAX_COLS], int r[][MAX_COLS], int n) {
+    for (int i = 0; i < n; i++) {
+        for (int j = 0; j < n; j++) {
+            r[i][j] = 0;
+            for (int k = 0; k < n; k++) {
+                r[i][j] += a[i][k] * b[k][j];
+            }
+        }
+    }
+}
+
+int sumDiagonal(int m[][MAX_COLS], int n) {
+    int sum = 0;
+    for (int i = 0; i < n; i++) {
+        sum += m[i][i];
+    }
+    return sum;
+}
+
+int sumAntiDiagonal(int m[][MAX_COLS], int n) {
+    int sum = 0;
+    for (int i = 0; i < n; i++) {
+        sum += m[i][n - 1 - i];
+    }
+    return sum;
+}
