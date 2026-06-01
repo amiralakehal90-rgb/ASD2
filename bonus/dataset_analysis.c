@@ -1,5 +1,7 @@
 #include <stdio.h>
-
+#include <stdlib.h>
+#include "include/common.h"
+#include "include/file_utils.h"
 // 1. Define the struct exactly how you need it
 typedef struct {
     int id;
@@ -58,4 +60,52 @@ int filterByCondition(Record arr[], int count, float threshold, Record out[]) {
     }
 
     return matchCount;
+}
+
+int loadDataset(const char* filename, Record arr[], int* count) {
+    FILE* file = fopen(filename, "rb"); 
+    if (file == NULL) {
+        return -1; 
+    }
+
+    *count = 0;
+    
+    while (fread(&arr[*count], sizeof(Record), 1, file)) {
+        (*count)++;
+    }
+
+    fclose(file);
+    return *count;
+}
+
+
+void displayDataset(Record arr[], int count) {
+    if (count == 0) {
+        printf("\n[!] No records found in the dataset.\n");
+        return;
+    }
+
+    
+    printf("\n%-10s %-25s %-15s\n", "ID", "Record Name", "Category");
+    printf("----------------------------------------------------------\n");
+
+    for (int i = 0; i < count; i++) {
+        // ????? ??? ????? ?????? (Category) ?????? ???
+        printf("%-10d %-25s %-15s\n", i + 1, "Data Entry", arr[i].category);
+    }
+    printf("----------------------------------------------------------\n");
+    printf("Total records displayed: %d\n", count);
+}
+void createSampleFile() {
+    FILE* file = fopen("data.bin", "wb");
+    if (file == NULL) return;
+
+    Record samples[2] = {
+        {1, "Student_A", "Information_System"},
+        {2, "Student_B", "Computer_Science"}
+    };
+
+    fwrite(samples, sizeof(Record), 2, file);
+    fclose(file);
+    printf("\n[v] Sample 'data.bin' created successfully!\n");
 }
