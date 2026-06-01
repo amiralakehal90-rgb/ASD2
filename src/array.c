@@ -333,3 +333,32 @@ void insertionSort(int arr[], int size) {
         arr[j + 1] = key;
     }
 }
+
+
+int deleteAt(int arr[], int* size, int index) {
+    if (index < 0 || index >= *size) return -1;
+    int deletedValue = arr[index];
+    for (int i = index; i < *size - 1; i++) {
+        arr[i] = arr[i + 1];
+    }
+    (*size)--;
+    return deletedValue;
+}
+
+int linearSearch(int arr[], int size, int value) {
+    for (int i = 0; i < size; i++) {
+        if (arr[i] == value) return i;
+    }
+    return -1;
+}
+
+int binarySearch(int arr[], int size, int value) {
+    int low = 0, high = size - 1;
+    while (low <= high) {
+        int mid = low + (high - low) / 2;
+        if (arr[mid] == value) return mid;
+        if (arr[mid] < value) low = mid + 1;
+        else high = mid - 1;
+    }
+    return -1;
+}
