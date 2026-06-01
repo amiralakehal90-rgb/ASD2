@@ -21,3 +21,12 @@ int isEmpty(Stack* S);
 void freeStack(Stack* S);
 
 #endif /* STACK_H */
+#ifndef STACK_H
+#define STACK_H
+
+#include "common.h" 
+
+int push(Stack* S, int value);
+
+#endif
+
