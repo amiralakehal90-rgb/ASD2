@@ -37,4 +37,17 @@ typedef struct {
 // --- 3. تصريحات الدوال (Prototypes) ---
 int countRecords(const char* filename);
 int appendRecord(const char* filename, Record* r);
+#ifndef RECORDS_H
+#define RECORDS_H
+
+typedef struct {
+    int id;
+    char name[50];
+    float score;
+} Record;
+
+int searchRecordById(const char* filename, int id, Record* result);
+int updateRecord(const char* filename, int index, Record* newData);
+
+
 #endif
