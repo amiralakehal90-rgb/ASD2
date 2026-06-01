@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include <string.h>
+#include <ctype.h>
 
 // --- 1. SINGLY LINKED LIST ---
 typedef struct Node {
@@ -20,6 +20,48 @@ int insertBeginning(List* L, int value) {
     newNode->next = L->head;
     L->head = newNode;
     return 0; 
+}
+
+// fun 07
+/*delete a node specified by its value*/
+int deleteByValue(Node* L, int value){
+    if(L == NULL) {
+      return NULL; 
+    }   
+    if(L->data == value) {
+      return deleteFirst(L);
+    } 
+    Node* p = L;
+    while(p->next != NULL && p->next->data != value) { 
+        p = p->next;
+    }
+    if(p->next == NULL){
+       return L; 
+    }
+    Node* temp = p->next;
+    p->next = temp->next;
+    free(temp); 
+    return L; 
+}
+
+// fun 08
+/*search of a node that holds the specified value*/
+Node* searchValue(Node* L, int value){
+    Node* current = L; // بداية البحث من الرأس
+
+    // المرور على جميع العقد
+    while (current != NULL)
+    {
+        // إذا وجدنا القيمة نرجع عنوان العقدة
+        if (current->data == value)
+            return current;
+
+        // الانتقال للعقدة التالية
+        current = current->next;
+    }
+
+    // إذا لم يتم العثور على القيمة
+    return NULL;
 }
 
 int insertEnd(List* L, int value) {
