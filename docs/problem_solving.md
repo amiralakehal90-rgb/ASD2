@@ -554,3 +554,285 @@ Return -1
 6.update the rear pointer to be the new node
 
 
+ \*
+Function :    PrintArray \\\
+       Problem Understanding :
+. Input  :      arr []  - the array ,     Size – number of elements to print  . 
+. Output : displays elements in [ a, b, c ] format 
+. Edge cases : size == 0 (print [] ),   size <0 ( do nothing ) .
+       Algorithm : 
+1-	Print the opening bracket   [ 
+2-	Loop through the array from index 0 te   size –1 
+3-	Print the current elements .
+4-	If the current elements is not the last one ,  print a comma and space
+5-	Print the closing bracket ] .
+
+
+   Function :   insertAt 
+Problem Understanding :
+. Input : arr [] - the array ,    *size  - current element count ,
+Index – position to insert at , value  –  element  to insert 
+. Output : returns 0 on success ,  -1  on error ; modofies arr [] and  *size
+. Edge cases : index out of bounds ,  array full   ( size  > =MAX _1D ) 
+Algorithm :
+1-	Check that Index 1s within [0 ,  *size] and size < MAX_1D
+2-	Shift all elements from position index rightward  by one slot .
+3-	Place value at arr |index]  and increment *size .
+ 
+   Function :  DeleteAt
+           Problem Understanding : 
+. Input : arr  []  - the array ,  *size   -  pointer to element count  ,    index  -  position to remove .
+.Output : Returns 0 on success ,  -1 on error ; modifies  arr []  and *size .
+. Edge cases : Index out of bounds  ( index < 0  or   index >=  *size ) , empty array .
+  Algorithm :
+1-	Check if   index is valid (  within   [0, *size   - 1]).
+2-	Shift all elements from   position index + 1   leftward by one slot to cover the gap.
+3-	Decrement   *size   by one.
+4-	Return 0.
+   Function  :  LinearSearch 
+           Problem Understanding : 
+.Input : arr[] – the array,   size – element count,   value – item to find.
+.Output  : Returns the   index   if found, -1 if not found.
+.Edge cases :  Empty array,   value appearing multiple times (return first index).
+   Algorithm :
+1-	Start a loop from  index  0 to   size - 1.
+2-	Compare the current element with the target   value. 
+3-	If a match is found, immediately return the current index.
+4-	If the loop finishes without a match, return -1.
+   Function :   BinarySearch 
+            Problem Understanding :
+. Input : arr[] – sorted array,   size – element count,   value – item to find.
+.Output : Returns the   index  if found,  -1 if not found.
+.Edge cases  : Empty array  ,   value not in range, array not sorted (requirement).
+   Algorithm :
+1-	Set   low  to   0   and   high  to size  - 1.
+2-	While   low is less than or equal to   high:
+. Calculate   mid point.
+. If   arr [mid]   equals value, return mid.
+. If  value is smaller than arr [ mid], update  high to  mid - 1.
+. If value is larger than   arr[mid ], update  low   to mid + 1.
+3-	If the loop ends, return -1.
+   Function :  isSymmetric 
+       Problem Understanding :
+.  Input :  m[][] → the matrix ,  n → size of the matrix (n × n) 
+.  Output:  returns 1 if the matrix is symmetric , returns 0 otherwise
+.  Edge cases:  matrix not square (optional check)
+  Algorithm :
+1-	Check that the matrix is square
+2-	Loop i from 0 to n-1
+3-	Loop j from i+1 to n-1
+4-	If m[i][j] != m[j][i]   , return 0
+5-	After all checks  ,   return 1
+    Function : SortRows 
+     Problem Understanding : 
+.  Input :  m[][] → the matrix ,    rows → number of rows ,  cols → number of columns
+. Output:  sorts each row independently
+. Edge cases: empty matrix    rows or cols = 0
+  Algorithm :
+1-	Loop i from 0 to rows-1
+2-	For each row, apply a sorting algorithm (e.g., Bubble Sort)
+3-	Loop j from 0 to cols-2
+4-	Loop k from 0 to cols-j-2
+5-	If m[i][k] > m[i][k+1] ,  swap them
+6-	Repeat until the row is sorted
+7-	Move to the next row
+
+           Part :  String Functions 
+   Function : toUpperCase
+     Problem Understanding :
+. Input :  s → string (array of characters)
+. Outpu t: modifies the string by converting lowercase letters to uppercase
+. Edge cases : empty string ,   characters that are not letters
+  Algorithm : 
+1-	Start from index i = 0
+2-	While s[i] is not '\0'
+3-	Check if s[i] is between 'a' and 'z'
+ If yes
+4-	convert it to uppercase (subtract 32 or use toupper)
+5-	Move to next character i++
+6-	Repeat until end of string
+Function : toLowerCase
+Problem Understanding :
+. Input  : s → string
+. Output  : modifies the string by converting uppercase letters to lowercase
+. Edge cases :  empty string  , non-letter characters
+ Algorithm : 
+1-	Start from index i = 0
+2-	While s[i] is not '\0'
+3-	Check if s[i] is between 'A' and 'Z’ 
+If yes
+4-	convert it to lowercase (add 32 or use tolower)
+5-	Move to next character i++
+6-	Repeat until end of string
+   Function : reverseString 
+      Problem Understanding :
+. Input :  s → string
+. Output : reverses the string in place
+. Edge cases  :  empty string  , string with one character
+ 
+ Algorithm : 
+1-	Set i = 0
+2-	Set j = length of string - 1
+3-	While i < j
+4-	Swap s[i] and s[j]
+5-	Increment i++
+6-	Decrement j--
+7-	Repeat until i >= j
+
+  Part :  File Handling 
+     Function :  countRecords 
+       Problem Understanding :
+. Input :  filename → name of the file
+. Output : returns the number of records in the file
+. Idea : get the file size and divide it by the size of one record
+. Edge cases : file does not exist ,  empty file
+ 
+Algorithm : 
+1-	Open file with mode "rb"
+2-	If file is NULL    return -1
+3-	Move pointer to the end using fseek(fp, 0, SEEK_END)
+4-	Get file size using ftell(fp)
+5-	Calculate number of records:   size / sizeof(Record)
+6-	Close file
+7-	Return number of records
+    Function : appendRecord 
+  Problem Understanding :
+. Input :  filename → name of the file  ,   r → record to add
+. Output :  adds a record at the end of the file
+. Edge cases :  file cannot be opened
+ 
+ Algorithm : 
+1-	Open file with mode "ab"
+2-	If file is NULL    return -1
+3-	Write record using:   fwrite(r, sizeof(Record), 1, fp)
+4-	Close file
+5-	Return 0
+
+
+Part : Lists & ADTs 
+
+    Function : initList 
+
+Problem Understanding : 
+
+. Input : List *L – A pointer to the list structure that needs to be initialized . 
+. Output : None ( updates the structure members directly ) . 
+. Edge cases : None ( Standard initialization procedure ) . 
+
+      Algorithm : 
+1-	Set the head pointer of the list L to NULL to indicate the list is currently empty 
+2-	Set the size variable of the list L to 0 to reflect that there are no elements stored yet 
+
+    Function : insertAtPosition 
+
+Problem Understanding :
+.  Input :   List* L,   int pos – the index to insert at ,  int value.
+. Output: Returns 1 on success, -1 on error.
+.  Edge cases: * Invalid position : pos < 0 or pos > size.
+                            Position 0: Use insertBeginning.
+
+Algorithm :
+1.	Check if pos is valid ; if not, return -1.
+2.	If pos is 0, call insertBeginning ( L, value).
+3.	Traverse to node at pos - 1.
+4.	Allocate a new node and store the value.
+5.	Set new node's next to the current successor and update the previous node's next to the new node.
+6.	Increment size.
+
+    Function : deleteBeginning 
+
+    Problem Understanding :
+. Input : List* L – The list from which the first element will be removed.
+. Output : Returns the integer value of the deleted node on success, or -1 if the list is empty.
+. Edge cases : * Empty List : If head == NULL,  there is nothing to delete.
+               Single Node List: If there is only one node, the head will correctly become NULL after deletion.
+
+   Algorithm :
+1-  Check if the list is empty (head == NULL). If true, return -1.
+2- Create a temporary pointer (temp) and point it to the current head node.
+3- Store the data of the head node into a variable ( to return it later ).
+4-  Update the head pointer to point to the next node in the list (head->next).
+5-  Free the memory occupied by the old head node (using the temp pointer).
+6-  Decrement the list size and return the stored value.
+
+   Part :  Doubly Linked List
+        Function :  deleteByValueDLL
+Problem Understanding :
+. Input :  * DLL* L – Pointer to the Doubly Linked List. , int value – The specific value to be searched for and removed. 
+. Output : * Returns 1 if the value was found and deleted, 0 otherwise. , Modifies the next and prev pointers of neighboring nodes. 
+. Edge cases : * List is empty (L->head == NULL),  Value is in the first node (Head),  Value is in the last node (Tail). 
+Algorithm :
+1.	Search : Traverse the list to find the node containing the target value.
+2.	Update Pointers : If the node is found:  If it's the head : Move the head pointer to the next node and set the new head's prev to NULL. , If it's NOT the head : Update the previous node's next pointer to skip the current node,  If it's NOT the last node : Update the next node's prev pointer to point back to the previous node.
+3.	Memory Management : Free the memory allocated for the deleted node and return success. 
+
+    Function : displayBackward
+   Problem Understanding :
+
+. Input : * DLL* L – Pointer to the Doubly Linked List. 
+. Output : * Prints all elements from the last node to the first node. 
+. Edge cases : * List is empty: Print a message indicating the list has no elements.
+
+ Algorithm
+
+1-	Check : Ensure the list is not empty before proceeding.
+2-	Navigate to Tail : Start from the head and traverse forward using next pointers until reaching the last node.
+3-	Reverse Traverse : From the last node, move backward using prev pointers.
+4-	Print : Output the data of each node during the backward traversal until the head is passed. 
+
+Part :  Stack 
+    Function : Push 
+  Problem Understanding :
+
+. Input : Stack* S – A pointer to the stack structure, int value – The integer data to be added to the top of the stack.
+. Output : Returns 1 on success (implied), or -1 if memory allocation (malloc) fails.
+. Edge cases : Memory Failure : The system cannot provide enough space for a new node.   Empty Stack : The algorithm works naturally for an empty stack by setting the new node's next to NULL (the initial top).
+Algorithm 
+
+1. Allocate a new node using malloc.
+2. Check if allocation failed; if it did, return -1.
+3. Set the data of the new node to the given value.
+4. Point the next pointer of the new node to the current top of the stack (S->top).
+5. Update the stack's top pointer to point to the new node.
+ Function : dequeue 
+  Problem Understanding :
+Input :  Queue* Q – A pointer to the queue structure.
+ Output : Returns the integer value removed from the front of the queue.
+Edge cases :  Empty Queue : Should return a failure value (like -1) if Q->front is NULL (safety check).  Last Element : If removing the last element, both front and rear must be set to NULL.
+Algorithm
+
+1. Store the data from the front node (Q->front->data) to return it later.
+2. Save a temporary pointer (temp) to the current front node to avoid losing its address.
+3. Move the front pointer to the next node in the queue (Q->front->next).
+4. Check if the new front is NULL (meaning the queue is now empty); if so, set the rear pointer to NULL as well.
+5. Free the memory occupied by the temp node.
+6. Return the stored data value.
+
+Part : BONUS 
+    Function : loadDataset
+  Problem Understanding :
+Input :  const char* filename : The name of the binary file to read from.,  Record arr[] : An array of structures to store the loaded records., int* count : A pointer to an integer that will store the total number of records successfully loaded.
+Output : Returns -1 if a file error occurs (e.g., file not found); otherwise, it returns the number of records read.
+Edge cases : File missing : The function must handle cases where the binary file does not exist.,  Empty file : The count should be set to 0 if the file has no data.
+Algorithm 
+1. Open the specified binary file in read-binary mode ("rb").
+2. Check if the file pointer is NULL ; if so, return -1 to indicate a file error.
+3. Initialize a local counter to zero to track records as they are read.
+4. Read records one by one from the file into the array using a loop until the end of the file is reached.
+5. Set the value of *count to the total number of records read.
+6. Close the file and return the count.
+    Function : displayDataset
+        Problem Understanding
+ Input : Record arr[] : The array containing the records to be displayed., int count : The total number of records in the array.
+ Output : None (it prints to the console).
+ Edge cases : Zero records : If count is 0, the function should display a message stating the dataset is empty.
+Algorithm
+
+1. Print a table header showing the names of each field (e.g., ID, Name, Category).
+2. Use formatted printf with specific field widths (e.g., %-10d, %-20s) to ensure the columns are perfectly aligned.
+3. Loop through the array from index 0 to count - 1.
+4. Display the data of each record within the loop using the same field widths for alignment.
+5. Print a closing line or border to finalize the table structure.
+
+
+
