@@ -258,3 +258,9 @@ int deleteEnd(List* L) {
     free(temp);
     return val;
 }
+
+void initListDLL(DLL* L) {
+    L->head = NULL;
+    L->tail = NULL;
+    L->size = 0;
+}
