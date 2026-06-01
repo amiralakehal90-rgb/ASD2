@@ -22,28 +22,6 @@ int insertBeginning(List* L, int value) {
     return 0; 
 }
 
-// fun 07
-/*delete a node specified by its value*/
-int deleteByValue(Node* L, int value){
-    if(L == NULL) {
-      return NULL; 
-    }   
-    if(L->data == value) {
-      return deleteFirst(L);
-    } 
-    Node* p = L;
-    while(p->next != NULL && p->next->data != value) { 
-        p = p->next;
-    }
-    if(p->next == NULL){
-       return L; 
-    }
-    Node* temp = p->next;
-    p->next = temp->next;
-    free(temp); 
-    return L; 
-}
-
 // fun 08
 /*search of a node that holds the specified value*/
 Node* searchValue(Node* L, int value){
@@ -253,6 +231,23 @@ int deleteByValueDLL(List* L, int value) {
 
     return 0; // لم يجد القيمة
 }
+
+//fun 05 
+/*print the DLL forward*/
+void displayForward(DLL* L){
+
+    DNode* current = L->head; // البداية من الرأس
+
+    // المرور على جميع العقد
+    while (current != NULL)
+    {
+        printf("%d ", current->data); // طباعة قيمة العقدة
+        current = current->next;      // الانتقال للعقدة التالية
+    }
+
+    printf("\n"); // سطر جديد بعد الانتهاء
+}
+
 void displayBackward(List* L) {
     // 1. تغيير النوع إلى DNode* واستخدام Casting
     DNode* current = (DNode*)L->head; 
