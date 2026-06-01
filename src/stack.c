@@ -101,3 +101,10 @@ int pop(Stack* S) {
     
     return value;
 }
+
+int peek(Stack* S) {
+    if (S->top == NULL) {
+        return -1; // القيمة المرسلة في حال كان الـ Stack فارغاً
+    }
+    return S->top->data;
+}
