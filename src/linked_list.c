@@ -229,3 +229,32 @@ void displayBackward(List* L) {
 
     printf("\n");
 }
+
+
+int deleteBeginning(List* L) {
+    if (L->head == NULL) return -1;
+    Node* temp = L->head;
+    int val = temp->data;
+    L->head = L->head->next;
+    free(temp);
+    return val;
+}
+
+int deleteEnd(List* L) {
+    if (L->head == NULL) return -1;
+    if (L->head->next == NULL) {
+        int val = L->head->data;
+        free(L->head);
+        L->head = NULL;
+        return val;
+    }
+    Node* current = L->head;
+    while (current->next->next != NULL) {
+        current = current->next;
+    }
+    Node* temp = current->next;
+    int val = temp->data;
+    current->next = NULL;
+    free(temp);
+    return val;
+}
