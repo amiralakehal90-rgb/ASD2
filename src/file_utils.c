@@ -50,3 +50,24 @@ int createBinaryFile(const char* filename)
     fclose(f);
     return 0;        
 }
+
+int countRecords(const char* filename) {
+    FILE *fp = fopen(filename, "rb"); // فتح الملف للقراءة الثنائية
+    if (fp == NULL) return 0;
+
+    fseek(fp, 0, SEEK_END); // الذهاب لآخر الملف
+    long size = ftell(fp);  // معرفة حجم الملف الكلي
+    fclose(fp);
+
+    return (int)(size / sizeof(Record)); // تقسيم حجم الملف على حجم السجل الواحد
+}
+
+// 2. إضافة سجل جديد لنهاية الملف
+int appendRecord(const char* filename, Record* r) {
+    FILE *fp = fopen(filename, "ab"); // الفتح بنمط append binary
+    if (fp == NULL) return 0;
+
+    fwrite(r, sizeof(Record), 1, fp); // كتابة السجل في النهاية
+    fclose(fp);
+    return 1;
+}
