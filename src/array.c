@@ -393,3 +393,50 @@ double AveragArray(int arr[],int size){
  
  return (double)Sum / size;
 }
+// fun 01
+void initMatrix(int m[][MAX_COLS], int* rows, int* cols) {
+    int i, j;
+    int r, c;
+
+    //طلب عدد الصفوف و الاعمدة من المستخدم
+    printf("Enter rows and columns: ");
+    scanf("%d %d", &r, &c);
+
+    //التحقق ان القيم المدخلة لا تتجاوز الحد الاقصى
+    if(r > 0 && r <= MAX_ROWS && c > 0 && c <= MAX_COLS){
+        *rows=r;
+        *cols=c;
+
+        // حلقة لادخال عناصر المصفوفة
+        for(i = 0; i < *rows; i++){
+            for(j = 0; j < *cols; j++){
+                printf("mat[%d][%d]= ", i, j);
+                scanf("%d", &m[i][j]);
+            }
+        }
+    }else{
+        //في حالة تجاوز الحجم المسموح
+        printf("Error, size exceeds MAX\n");
+    }
+}
+// fun 02
+#define MAX_ROWS 10
+#define MAX_COLS 10
+
+// دالة طباعة المصفوفة
+void printMatrix(int m[][MAX_COLS], int rows, int cols)
+{
+    // المرور على الصفوف
+    for (int i = 0; i < rows; i++)
+    {
+        // المرور على الأعمدة
+        for (int j = 0; j < cols; j++)
+        {
+            // طباعة عنصر مع تنسيق ثابت
+            printf("%4d", m[i][j]);
+        }
+
+        // الانتقال إلى سطر جديد بعد كل صف
+        printf("\n");
+    }
+}
