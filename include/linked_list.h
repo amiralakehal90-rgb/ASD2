@@ -46,4 +46,10 @@ void displayList(List* L);
 int deleteByValueDLL(List* L, int value);
 void displayBackward(List* L);
 
+
+int deleteBeginning(List* L);
+int deleteEnd(List* L);
+
+
 #endif
+
