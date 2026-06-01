@@ -1,110 +1,64 @@
-#include "../include/stack.h" 
+#include "../include/stack.h"
 #include <stdio.h>
 #include <stdlib.h>
-#include <limits.h>
 
-/* * Adds a new element to the top of the stack.
- * Logic: Create node -> point new node to current top -> update top to new node.
- */
-void push(Stack* S, int val) {
-    Node* newNode = (Node*)malloc(sizeof(Node));
-    if (newNode == NULL) {
-        printf("Stack Overflow: Failed to allocate memory.\n");
-        return;
-    }
-    newNode->data = val;
-    newNode->next = S->top;
-    S->top = newNode;
+// fun 01
+ 
+void initStack(Stack* S)
+{
+    S->top = NULL;  /* No nodes yet, stack is empty */
 }
 
-/* * Removes the top element and returns its value.
- */
-int pop(Stack* S) {
-    // 1. Check if the stack is empty
-    if (isEmpty(S)) {
-        printf("Stack Underflow\n");
-        return INT_MIN; 
-    }
+// fun 02
+ 
+int push(Stack* S, int value)
+{
+    /* Allocate memory for the new node */
+    Node* node = malloc(sizeof(Node));
+    if (node == NULL)
+        return -1;  /* Allocation failed */
 
-    // 2. Store the data to return later
-    int poppedValue = S->top->data;
+    node->data = value;   /* Set node value */
+    node->next = S->top;  /* New node points to current top */
+    S->top     = node;    /* Update top to the new node */
 
-    // 3. Save current top to a temp pointer so we don't lose it
-    Node* temp = S->top;
-
-    // 4. Move top pointer to the next node in the list
-    S->top = S->top->next;
-
-    // 5. Free the memory of the removed node
-    free(temp);
-
-    // 6. Return the value
-    return poppedValue;
+    return 1;  /* Push successful */
 }
 
-/*
- * Returns the top value without removing it.
- */
-int peek(Stack* S) {
-    if (isEmpty(S)) {
-        printf("Stack is empty.\n");
-        return INT_MIN;
-    }
-    return S->top->data;
+// fun 03
+ 
+int pop(Stack* S)
+{
+    int value;
+    Node* temp;
+
+    /* Check if the stack is empty */
+    if (S->top == NULL)
+        return -1;  /* Nothing to pop, return sentinel */
+
+    value  = S->top->data;  /* Save the top value to return */
+    temp   = S->top;        /* Save pointer to free it later */
+
+    S->top = S->top->next;  /* Move top to the next node */
+
+    free(temp);  /* Free the old top node */
+
+    return value;  /* Return the popped value */
 }
 
-/*
- * Checks if the stack is empty (returns 1 if empty, 0 otherwise)
- */
-int isEmpty(Stack* S) {
-    return S->top == NULL;
+// fun 04
+ 
+int peek(Stack* S)
+{
+    if (S->top == NULL)
+        return -1;         /* Stack is empty, return sentinel */
+
+    return S->top->data;  /* Return top element without modifying stack */
 }
 
-/*
- * Frees all memory in the stack to prevent memory leaks
- */
-void freeStack(Stack* S) {
-    Node* current = S->top;
-    Node* nextNode;
-    
-    while (current != NULL) {
-        nextNode = current->next;
-        free(current);
-        current = nextNode;
-    }
-    S->top = NULL;
-}
-int push(Stack* S, int value) {
-    // 1. Allocate new node
-    Node* newNode = (Node*)malloc(sizeof(Node));
-    
-    // 2. Check if malloc fails
-    if (newNode == NULL) return -1;
-    
-    // 3. Set node data and point next to current top
-    newNode->data = value;
-    newNode->next = S->top;
-    
-    // 4. Update top to the new node
-    S->top = newNode;
-    
-    return 1;
-}
-
-int pop(Stack* S) {
-    if (S->top == NULL) return -1; // Stack empty
-    
-    Node* temp = S->top;
-    int value = temp->data;
-    S->top = S->top->next;
-    free(temp);
-    
-    return value;
-}
-
-int peek(Stack* S) {
-    if (S->top == NULL) {
-        return -1; // القيمة المرسلة في حال كان الـ Stack فارغاً
-    }
-    return S->top->data;
+// fun 05
+ 
+int isEmpty(Stack* S)
+{
+    return (S->top == NULL);
 }
