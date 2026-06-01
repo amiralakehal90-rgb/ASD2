@@ -34,3 +34,16 @@ void insertEnd(List* L, int val);
 void insertBeginningDLL(DLL* dL, int val);
 
 #endif /* LINKED_LIST_H */
+
+#include "common.h"
+
+
+// (Prototypes)
+void initList(List* L);
+int insertAtPosition(List* L, int pos, int value);
+int deleteBeginning(List* L);
+void displayList(List* L);
+int deleteByValueDLL(List* L, int value);
+void displayBackward(List* L);
+
+#endif
