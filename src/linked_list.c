@@ -379,3 +379,21 @@ void mergeSortedLists(List* A, List* B, List* result) {
     }
 }
 
+int insertEndDLL(DLL* L, int value) {
+    Node* newNode = (Node*)malloc(sizeof(Node));
+    if (newNode == NULL) return 0;
+
+    newNode->data = value;
+    newNode->next = NULL;
+    newNode->prev = L->tail;
+
+    if (L->head == NULL) {
+        L->head = newNode;
+    } else {
+        L->tail->next = newNode;
+    }
+
+    L->tail = newNode;
+    L->size++;
+    return 1;
+}
