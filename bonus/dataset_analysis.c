@@ -109,3 +109,33 @@ void createSampleFile() {
     fclose(file);
     printf("\n[v] Sample 'data.bin' created successfully!\n");
 }
+
+#include <string.h>
+#include "sort.h"
+
+void sortDatasetByField(Record arr[], int count, char* field) {
+    int i, j;
+    Record temp;
+
+    for (i = 0; i < count - 1; i++) {
+        for (j = 0; j < count - i - 1; j++) {
+            int condition = 0;
+
+            if (strcmp(field, "name") == 0) {
+                if (strcmp(arr[j].name, arr[j + 1].name) > 0) condition = 1;
+            } 
+            else if (strcmp(field, "id") == 0) {
+                if (arr[j].id > arr[j + 1].id) condition = 1;
+            } 
+            else if (strcmp(field, "score") == 0) {
+                if (arr[j].score > arr[j + 1].score) condition = 1;
+            }
+
+            if (condition) {
+                temp = arr[j];
+                arr[j] = arr[j + 1];
+                arr[j + 1] = temp;
+            }
+        }
+    }
+}
