@@ -139,3 +139,42 @@ void sortDatasetByField(Record arr[], int count, char* field) {
         }
     }
 }
+
+typedef struct
+{
+    int id;          // رقم التعريف
+    char name[50];   // اسم الشخص
+    float score;     // النقطة
+} Record;
+
+// دالة لإيجاد السجل الذي يملك أكبر قيمة في score
+Record findMaxByField(Record arr[], int count)
+{
+    Record max = arr[0]; // نفترض أن أول عنصر هو الأكبر
+
+    // المرور على باقي العناصر
+    for (int i = 1; i < count; i++)
+    {
+        // إذا وجدنا قيمة أكبر نحدث max
+        if (arr[i].score > max.score)
+            max = arr[i];
+    }
+
+    return max; // إرجاع السجل صاحب أكبر score
+}
+
+// دالة لإيجاد السجل الذي يملك أصغر قيمة في score
+Record findMinByField(Record arr[], int count)
+{
+    Record min = arr[0]; // نفترض أن أول عنصر هو الأصغر
+
+    // المرور على باقي العناصر
+    for (int i = 1; i < count; i++)
+    {
+        // إذا وجدنا قيمة أصغر نحدث min
+        if (arr[i].score < min.score)
+            min = arr[i];
+    }
+
+    return min; // إرجاع السجل صاحب أصغر score
+}
