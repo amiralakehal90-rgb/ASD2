@@ -130,3 +130,102 @@ int insertBeginningDLL(DLL* L, int value) {
     L->head = newNode;
     return 1;
 }
+
+void initList(List* L) {
+    L->head = NULL;
+    L->size = 0;
+}
+
+// الإضافة في موقع محدد
+int insertAtPosition(List* L, int pos, int value) {
+    if (pos < 0 || pos > L->size) return -1;
+
+    Node* newNode = (Node*)malloc(sizeof(Node));
+    if (newNode == NULL) return -1;
+    newNode->data = value;
+
+    if (pos == 0) {
+        newNode->next = L->head;
+        L->head = newNode;
+    } else {
+        Node* temp = L->head;
+        for (int i = 0; i < pos - 1; i++) {
+            temp = temp->next;
+        }
+        newNode->next = temp->next;
+        temp->next = newNode;
+    }
+    L->size++;
+    return 1;
+}
+
+// الحذف من البداية
+int deleteBeginning(List* L) {
+    if (L->head == NULL) return -1;
+
+    Node* temp = L->head;
+    int val = temp->data;
+    L->head = L->head->next;
+    free(temp);
+    L->size--;
+    return val;
+}
+void displayList(List* L) {
+    if (L == NULL || L->head == NULL) {
+        printf("\n[ القائمة فارغة حالياً ]\n");
+        return;
+    }
+    
+    Node* temp = L->head;
+    printf("\nالعناصر الموجودة: ");
+    while (temp != NULL) {
+        printf("[%d] -> ", temp->data);
+        temp = temp->next;
+    }
+    printf("NULL\n");
+}
+int deleteByValueDLL(List* L, int value) {
+    DNode* current =(DNode*) L->head;
+
+    while (current != NULL) {
+        if (current->data == value) {
+
+            // إذا كانت أول عقدة
+            if (current->prev == NULL) {
+                L->head =(DNode*) current->next;
+                if (L->head != NULL)
+                    ((DNode*)L->head)->prev = NULL;
+            }
+            else {
+                ((DNode*)current->prev)->next = current->next;
+                if (current->next != NULL)
+                    ((DNode*)current->next)->prev = current->prev;
+            }
+
+            free(current);
+            return 1; // تم الحذف
+        }
+
+        current = (DNode*)current->next;
+    }
+
+    return 0; // لم يجد القيمة
+}
+void displayBackward(List* L) {
+    // 1. تغيير النوع إلى DNode* واستخدام Casting
+    DNode* current = (DNode*)L->head; 
+
+    // الوصول لآخر عقدة
+    while (current != NULL && current->next != NULL) {
+        current = (DNode*)current->next;
+    }
+
+    // الطباعة من الخلف إلى الأمام
+    while (current != NULL) {
+        printf("%d ", current->data);
+        // 2. استخدام prev الآن سيعمل لأن current نوعه DNode*
+        current = (DNode*)current->prev; 
+    }
+
+    printf("\n");
+}
