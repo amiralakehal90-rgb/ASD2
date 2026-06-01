@@ -301,3 +301,46 @@ void initListDLL(DLL* L) {
     L->tail = NULL;
     L->size = 0;
 }
+
+
+void displayList(List* L) {
+    Node* current = L->head;
+    while (current != NULL) {
+        printf("%d -> ", current->data);
+        current = current->next;
+    }
+    printf("NULL\n");
+}
+
+void reverseList(List* L) {
+    Node *prev = NULL, *current = L->head, *next = NULL;
+    while (current != NULL) {
+        next = current->next;
+        current->next = prev;
+        prev = current;
+        current = next;
+    }
+    L->head = prev;
+}
+
+void sortListBubble(List* L) {
+    if (L->head == NULL) return;
+    int swapped;
+    Node *ptr1;
+    Node *lptr = NULL;
+
+    do {
+        swapped = 0;
+        ptr1 = L->head;
+        while (ptr1->next != lptr) {
+            if (ptr1->data > ptr1->next->data) {
+                int temp = ptr1->data;
+                ptr1->data = ptr1->next->data;
+                ptr1->next->data = temp;
+                swapped = 1;
+            }
+            ptr1 = ptr1->next;
+        }
+        lptr = ptr1;
+    } while (swapped);
+}
