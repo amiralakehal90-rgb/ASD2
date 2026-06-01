@@ -1,29 +1,128 @@
+#include "../include/linked_list.h"      // It represent the path towards my header (library)
 #include <stdio.h>
 #include <stdlib.h>
-#include <ctype.h>
+#include <stdbool.h>
 
-// --- 1. SINGLY LINKED LIST ---
-typedef struct Node {
-    int data;
-    struct Node* next;
-} Node;
+// fun 01
 
-typedef struct List {
-    Node* head;
-} List;
+Node* create(int value)
+{
+    Node* n = (Node*)malloc(sizeof(Node));
 
-int insertBeginning(List* L, int value) {
-    Node* newNode = (Node*)malloc(sizeof(Node));
-    if (newNode == NULL) return -1; 
+    if(n == NULL)
+        return NULL;
 
-    newNode->data = value;
-    newNode->next = L->head;
-    L->head = newNode;
-    return 0; 
+    n->data = value;
+    n->next = NULL;
+
+    return n;
 }
 
+// fun 02
+
+int insertBeginning(Node* L, int value){
+    Node *n =create(value);  //allocate
+    n->next = L;               // 2. point to current head
+    L = n;
+}
+
+// fun 03
+
+int insertEnd(Node* L, int value){
+    Node *p = L;
+    while (p->next != NULL)
+    p=p->next;
+    Node *n =create(value);
+    p->next = n;
+    L = n;
+}
+
+// fun 04
+int insertAtPosition(Node* L, int pos, int value){
+    if(pos == 0){
+     return insertAtBeginning(L, value); 
+    }
+    Node* n = create(value); 
+    Node* p = L; 
+    for(int i = 0; i < pos - 1 && p != NULL; i++) { 
+        p = p->next;
+    } 
+
+    if(p == NULL) {
+     return L; 
+    }
+    n->next = p->next; 
+    p->next = n; 
+    return L;
+}
+
+// fun 05
+int deleteBeginning(Node* L){
+    if(L == NULL){
+      return NULL;
+    }
+    Node* temp = L;
+    L = L->next;
+    free(temp); 
+    return L; 
+}
+
+// fun 06
+
+int deleteEnd(Node* L){
+    // empty list
+    if(L == NULL)
+        return NULL;
+
+    // only one node
+    if(L->next == NULL)
+    {
+        free(L);
+        return NULL;
+    }
+
+    Node* p = L;
+
+    // stop at node before the last
+    while(p->next->next != NULL)
+    {
+        p = p->next;
+    }
+
+    // delete last node
+    free(p->next);
+
+    // make new last node point to NULL
+    p->next = NULL;
+
+    return L;
+}
+
+// fun 07
+
+int deleteByValue(Node* L, int value){
+    if(L == NULL) {
+      return NULL; 
+    }   
+    if(L->data == value) {
+      return deleteFirst(L);
+    } 
+    Node* p = L;
+    while(p->next != NULL && p->next->data != value) { 
+        p = p->next;
+    }
+    if(p->next == NULL){
+       return L; 
+    }
+    Node* temp = p->next;
+    p->next = temp->next;
+    free(temp); 
+    return L; 
+}
+
+
 // fun 08
-/*search of a node that holds the specified value*/
+
 Node* searchValue(Node* L, int value){
     Node* current = L; // بداية البحث من الرأس
 
@@ -42,198 +141,149 @@ Node* searchValue(Node* L, int value){
     return NULL;
 }
 
-int insertEnd(List* L, int value) {
-    Node* newNode = (Node*)malloc(sizeof(Node));
-    if (newNode == NULL) return -1;
+// fun 09
 
-    newNode->data = value;
-    newNode->next = NULL;
-
-    if (L->head == NULL) {
-        L->head = newNode;
-        return 0;
+void displayList(Node* L){
+    Node* q = L;
+    while(q != NULL){
+        printf("%d", q->data);
+        q = q->next;
     }
+    printf("\n");
 
-    Node* temp = L->head;
-    while (temp->next != NULL) {
-        temp = temp->next;
-    }
-    temp->next = newNode;
-    return 0;
 }
 
-// fun :
-int deleteByValue(List* L, int value) {
-    // 1. Handle edge case: List pointer is NULL or list is empty
-    if (L == NULL || L->head == NULL) {
-        return 0; 
-    }
+// fun 10
 
-    Node* temp = L->head;
+void reverseList(Node* L){
+    if (L == NULL  L == NULL) return;
 
-    // 2. Handle head case separately
-    if (temp->data == value) {
-        L->head = temp->next; // Redirect head to the second node
-        free(temp);           // Free the old head
-        return 1;             // Return success
-    }
-
-    // 3. Search for the value in the rest of the list
-    Node* prev = L->head;
-    Node* curr = L->head->next;
-
-    while (curr != NULL && curr->data != value) {
-        prev = curr;
-        curr = curr->next;
-    }
-
-    // 4. If the value was found, unlink and free the node
-    if (curr != NULL) {
-        prev->next = curr->next; // Bypass the current node
-        free(curr);              // Free memory
-        return 1;                // Return success
-    }
-
-    // Value not found in the list
-    return 0;
-}
-
-// fun : 
-Node* searchByValue(List* L, int value) {
-    // 1. Handle edge case: List pointer is NULL or list is empty
-    if (L == NULL || L->head == NULL) {
-        return NULL;
-    }
-
-    // 2. Start traversal from the head node
-    Node* curr = L->head;
-
-    // 3. Loop through the list until the end (NULL) is reached
-    while (curr != NULL) {
-        if (curr->data == value) {
-            return curr; // Value found, return the pointer to this node
-        }
-        curr = curr->next; // Move to the next node
-    }
-
-    // 4. Value was not found in the entire list
-    return NULL;
-}
-
-// --- 2. DOUBLY LINKED LIST ---
-// RENAMED to DNode to avoid conflict with Node
-typedef struct DNode {
-    int data;
-    struct DNode* next;
-    struct DNode* prev;
-} DNode;
-
-typedef struct DLL {
-    DNode* head;
-    DNode* tail;
-} DLL;
-
-int insertBeginningDLL(DLL* L, int value) {
-    DNode* newNode = (DNode*)malloc(sizeof(DNode));
-    if (newNode == NULL) return 0;
-
-    newNode->data = value;
-    newNode->prev = NULL;
-    newNode->next = L->head;
-
-    if (L->head == NULL) {
-        L->tail = newNode;
-    } else {
-        L->head->prev = newNode;
-    }
-
-    L->head = newNode;
-    return 1;
-}
-
-void initList(List* L) {
-    L->head = NULL;
-    L->size = 0;
-}
-
-// الإضافة في موقع محدد
-int insertAtPosition(List* L, int pos, int value) {
-    if (pos < 0 || pos > L->size) return -1;
-
-    Node* newNode = (Node*)malloc(sizeof(Node));
-    if (newNode == NULL) return -1;
-    newNode->data = value;
-
-    if (pos == 0) {
-        newNode->next = L->head;
-        L->head = newNode;
-    } else {
-        Node* temp = L->head;
-        for (int i = 0; i < pos - 1; i++) {
-            temp = temp->next;
-        }
-        newNode->next = temp->next;
-        temp->next = newNode;
-    }
-    L->size++;
-    return 1;
-}
-
-// الحذف من البداية
-int deleteBeginning(List* L) {
-    if (L->head == NULL) return -1;
-
-    Node* temp = L->head;
-    int val = temp->data;
-    L->head = L->head->next;
-    free(temp);
-    L->size--;
-    return val;
-}
-void displayList(List* L) {
-    if (L == NULL || L->head == NULL) {
-        printf("\n[ القائمة فارغة حالياً ]\n");
-        return;
-    }
-    
-    Node* temp = L->head;
-    printf("\nالعناصر الموجودة: ");
-    while (temp != NULL) {
-        printf("[%d] -> ", temp->data);
-        temp = temp->next;
-    }
-    printf("NULL\n");
-}
-int deleteByValueDLL(List* L, int value) {
-    DNode* current =(DNode*) L->head;
+    Node* prev = NULL;
+    Node* current = L;
+    Node* next = NULL;
 
     while (current != NULL) {
-        if (current->data == value) {
-
-            // إذا كانت أول عقدة
-            if (current->prev == NULL) {
-                L->head =(DNode*) current->next;
-                if (L->head != NULL)
-                    ((DNode*)L->head)->prev = NULL;
-            }
-            else {
-                ((DNode*)current->prev)->next = current->next;
-                if (current->next != NULL)
-                    ((DNode*)current->next)->prev = current->prev;
-            }
-
-            free(current);
-            return 1; // تم الحذف
-        }
-
-        current = (DNode*)current->next;
+        next = current->next;  // Sauvegarde le reste de la liste
+        current->next = prev;  // Inverse le lien du nœud actuel
+        prev = current;        // Déplace prev d'un cran vers l'avant
+        current = next;        // Déplace current d'un cran vers l'avant
     }
 
-    return 0; // لم يجد القيمة
+    L = prev; 
+    return prev;
 }
 
-//fun 05 
-/*print the DLL forward*/
+// fun 11
+
+void sortListBubble(List* L) {
+    if (L == NULL  L->head == NULL || L->head->next == NULL) return;
+
+    bool swapped;
+    Node* current;
+    Node* lastPtr = NULL; 
+
+    do {
+        swapped = false;
+        current = L->head;
+
+        while (current->next != lastPtr) {
+            if (current->data > current->next->data) {
+                int temp = current->data;
+                current->data = current->next->data;
+                current->next->data = temp;
+                
+                swapped = true;
+            }
+            current = current->next;
+        }
+        lastPtr = current;
+    } while (swapped);
+}
+
+// fun 12
+
+void mergeSortedLists(List* A, List* B, List* result){
+    Node* p1 = A->head;
+    Node* p2 = B->head;
+    result->head = NULL;
+
+    while (p1 != NULL && p2 != NULL){
+        if (p1->data < p2->data){
+            insertEnd(result, p1->data);
+            p1 = p1->next;
+        }else{
+            insertEnd(result, p2->data);
+            p2 = p2->next;
+        }
+    }
+    while (p1 != NULL){
+        insertEnd(result, p1->data);
+        p1 = p1->next;
+    }
+    while (p2 != NULL){
+        insertEnd(result, p2->data);
+        p2 = p2->next;
+    }
+
+}
+
+//Doubly linked lists
+// fun 01
+
+void initListDLL(DLL* L){
+    L->head = NULL;
+    L->tail = NULL;
+    L->size = 0;
+
+}
+
+// fun 02
+int insertBeginningDLL(DLL* L, int value){
+    DNode* n = create(value);
+    n->next = L->head;
+    if(L->head != NULL) {
+      L->head->prev = n; // old head points back to new node return n
+    } 
+}
+
+// fun 03
+
+int insertEndDLL(DLL* L, int value){
+    DNode* n = create(value);
+    if(L->head == NULL) {
+       return n;
+    }
+    DNode* p = L->head; 
+    while(p->next != NULL) {
+       p = p->next;
+       p->next = n;
+       n->prev = p; // link back to previous last node return head;
+    }
+}
+
+// fun 04
+int deleteByValueDLL(DLL* L, int value){
+    DNode* p = L->head;
+    while(p != NULL && p->data != value){
+      p = p->next;
+    }
+       
+    if(p == NULL){
+         return; }
+    if(p->prev != NULL) {
+         p->prev->next = p->next; 
+    }else{
+         L->head = p->next; } // removing head
+    if(p->next != NULL) {
+         p->next->prev = p->prev;
+    }else{
+        L->tail = p->prev;
+    }
+    free(p); 
+    L->size--;
+}
+
+// fun 05
 void displayForward(DLL* L){
 
     DNode* current = L->head; // البداية من الرأس
@@ -248,152 +298,19 @@ void displayForward(DLL* L){
     printf("\n"); // سطر جديد بعد الانتهاء
 }
 
-void displayBackward(List* L) {
-    // 1. تغيير النوع إلى DNode* واستخدام Casting
-    DNode* current = (DNode*)L->head; 
+// fun 06
 
-    // الوصول لآخر عقدة
-    while (current != NULL && current->next != NULL) {
-        current = (DNode*)current->next;
+void displayBackward(DLL* L){
+
+    DNode* current = L->tail; // البداية من الرأس
+
+    // المرور على جميع العقد
+    while (current != NULL)
+    {
+        printf("%d ", current->data); // طباعة قيمة العقدة
+        current = current->prev;      // الانتقال للعقدة التالية
     }
 
-    // الطباعة من الخلف إلى الأمام
-    while (current != NULL) {
-        printf("%d ", current->data);
-        // 2. استخدام prev الآن سيعمل لأن current نوعه DNode*
-        current = (DNode*)current->prev; 
-    }
+    printf("\n"); // سطر جديد بعد الانتهاء
 
-    printf("\n");
-}
-
-
-int deleteBeginning(List* L) {
-    if (L->head == NULL) return -1;
-    Node* temp = L->head;
-    int val = temp->data;
-    L->head = L->head->next;
-    free(temp);
-    return val;
-}
-
-int deleteEnd(List* L) {
-    if (L->head == NULL) return -1;
-    if (L->head->next == NULL) {
-        int val = L->head->data;
-        free(L->head);
-        L->head = NULL;
-        return val;
-    }
-    Node* current = L->head;
-    while (current->next->next != NULL) {
-        current = current->next;
-    }
-    Node* temp = current->next;
-    int val = temp->data;
-    current->next = NULL;
-    free(temp);
-    return val;
-}
-
-void initListDLL(DLL* L) {
-    L->head = NULL;
-    L->tail = NULL;
-    L->size = 0;
-}
-
-
-void displayList(List* L) {
-    Node* current = L->head;
-    while (current != NULL) {
-        printf("%d -> ", current->data);
-        current = current->next;
-    }
-    printf("NULL\n");
-}
-
-void reverseList(List* L) {
-    Node *prev = NULL, *current = L->head, *next = NULL;
-    while (current != NULL) {
-        next = current->next;
-        current->next = prev;
-        prev = current;
-        current = next;
-    }
-    L->head = prev;
-}
-
-void sortListBubble(List* L) {
-    if (L->head == NULL) return;
-    int swapped;
-    Node *ptr1;
-    Node *lptr = NULL;
-
-    do {
-        swapped = 0;
-        ptr1 = L->head;
-        while (ptr1->next != lptr) {
-            if (ptr1->data > ptr1->next->data) {
-                int temp = ptr1->data;
-                ptr1->data = ptr1->next->data;
-                ptr1->next->data = temp;
-                swapped = 1;
-            }
-            ptr1 = ptr1->next;
-        }
-        lptr = ptr1;
-    } while (swapped);
-}    
-
-Node* createNode(int value) {
-    Node* newNode = (Node*)malloc(sizeof(Node));
-    newNode->data = value;
-    newNode->next = NULL;
-    return newNode;
-}
-
-void mergeSortedLists(List* A, List* B, List* result) {
-    Node* pA = A->head;
-    Node* pB = B->head;
-    result->head = NULL;
-    Node* tail = NULL;
-
-    while (pA != NULL || pB != NULL) {
-        int val;
-        if (pA != NULL && (pB == NULL || pA->data <= pB->data)) {
-            val = pA->data;
-            pA = pA->next;
-        } else {
-            val = pB->data;
-            pB = pB->next;
-        }
-
-        Node* newNode = createNode(val);
-        if (result->head == NULL) {
-            result->head = newNode;
-            tail = newNode;
-        } else {
-            tail->next = newNode;
-            tail = newNode;
-        }
-    }
-}
-
-int insertEndDLL(DLL* L, int value) {
-    Node* newNode = (Node*)malloc(sizeof(Node));
-    if (newNode == NULL) return 0;
-
-    newNode->data = value;
-    newNode->next = NULL;
-    newNode->prev = L->tail;
-
-    if (L->head == NULL) {
-        L->head = newNode;
-    } else {
-        L->tail->next = newNode;
-    }
-
-    L->tail = newNode;
-    L->size++;
-    return 1;
 }
