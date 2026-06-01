@@ -19,5 +19,11 @@ typedef struct Queue {
 int enqueue(Queue* Q, int val);
 int dequeue(Queue* Q);
 int isEmptyQueue(Queue* Q);
+void initQueue(Queue* Q);
+void initQueue(Queue* Q) {
+    Q->front = NULL;
+    Q->rear = NULL;
+}
+
 
 #endif /* QUEUE_H */
