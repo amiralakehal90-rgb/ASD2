@@ -20,9 +20,7 @@ int peek(Stack* S);
 int isEmpty(Stack* S);
 void freeStack(Stack* S);
 
-#endif /* STACK_H */
-#ifndef STACK_H
-#define STACK_H
+
 
 #include "common.h" 
 
@@ -31,5 +29,21 @@ int push(Stack* S, int value);
 void initStack(Stack* S);
 void initStack(Stack* S) {
     S->top = NULL;
+
+
+// تعريف مسبق لـ Node و Stack إذا لم يكونا معرفين بالفعل
+typedef struct Node {
+    int data;
+    struct Node* next;
+} Node;
+
+typedef struct {
+    Node* top;
+} Stack;
+
+int peek(Stack* S);
+
 #endif
+
+
 
