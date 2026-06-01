@@ -362,3 +362,34 @@ int binarySearch(int arr[], int size, int value) {
     }
     return -1;
 }
+// fun 13
+int sumArray(int arr[], int size) {
+    // إذا كان الحجم صفر أو سالب نرجع 0
+    if (size <= 0) {
+        return 0;
+    }
+
+    int total = 0; // متغير لتخزين المجموع
+
+    // حلقة تمر على جميع عناصر المصفوفة
+    for (int i = 0; i < size; i++) {
+        total = total + arr[i]; // جمع العناصر
+    }
+
+    return total; // إرجاع المجموع النهائي
+}
+// fun 14
+double AveragArray(int arr[],int size){
+
+   if(size==0){
+     return 0;
+   }
+ 
+ int Sum=0;
+ 
+ for(int i = 0; i< size ; i++){
+    Sum = Sum + arr[i];
+ }
+ 
+ return (double)Sum / size;
+}
