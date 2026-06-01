@@ -50,6 +50,8 @@ void displayBackward(List* L);
 int deleteBeginning(List* L);
 int deleteEnd(List* L);
 
+void initListDLL(DLL* L);
+
 
 #endif
 
