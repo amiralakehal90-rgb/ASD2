@@ -74,3 +74,30 @@ void freeStack(Stack* S) {
     }
     S->top = NULL;
 }
+int push(Stack* S, int value) {
+    // 1. Allocate new node
+    Node* newNode = (Node*)malloc(sizeof(Node));
+    
+    // 2. Check if malloc fails
+    if (newNode == NULL) return -1;
+    
+    // 3. Set node data and point next to current top
+    newNode->data = value;
+    newNode->next = S->top;
+    
+    // 4. Update top to the new node
+    S->top = newNode;
+    
+    return 1;
+}
+
+int pop(Stack* S) {
+    if (S->top == NULL) return -1; // Stack empty
+    
+    Node* temp = S->top;
+    int value = temp->data;
+    S->top = S->top->next;
+    free(temp);
+    
+    return value;
+}
