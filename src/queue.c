@@ -1,4 +1,4 @@
-#include "../include/queue.h"      // It represent the path towards my header (library)
+#include "../include/queue.h"     
 #include <stdio.h>
 #include <stdlib.h>
 
