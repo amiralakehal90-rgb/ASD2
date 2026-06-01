@@ -116,3 +116,39 @@ int appendRecord(const char* filename, Record* r) {
     fclose(fp);
     return 1;
 }
+
+int searchRecordById(const char* filename, int id, Record* result) {
+    FILE* file = fopen(filename, "rb");
+    if (!file) return -1;
+
+    Record temp;
+    int index = 0;
+    while (fread(&temp, sizeof(Record), 1, file)) {
+        if (temp.id == id) {
+            *result = temp;
+            fclose(file);
+            return index;
+        }
+        index++;
+    }
+
+    fclose(file);
+    return -1;
+}
+
+int updateRecord(const char* filename, int index, Record* newData) {
+    FILE* file = fopen(filename, "r+b");
+    if (!file) return -1;
+
+    // الانتقال إلى الموقع الصحيح بالبايت
+    if (fseek(file, index * sizeof(Record), SEEK_SET) != 0) {
+        fclose(file);
+        return -1;
+    }
+
+    // الكتابة فوق السجل القديم
+    size_t written = fwrite(newData, sizeof(Record), 1, file);
+    fclose(file);
+
+    return (written == 1) ? 0 : -1;
+}
