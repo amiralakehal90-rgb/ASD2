@@ -46,4 +46,71 @@ int compareIgnoreCase(const char* a, const char* b) {
     return tolower((unsigned char)*a) - tolower((unsigned char)*b);
 }
 
+#include "../include/string_utils.h"     
+#include <stdio.h>
+#include <stdlib.h>
+
+#include <ctype.h>
+
+int countWords(const char* s)
+{
+    int count = 0;
+    int inWord = 0; 
+
+    while (*s)         //Keep looping while the current character is not the end of the string
+    {
+        if (isspace(*s))        // If the current character is a space that means we are outside a word
+            inWord = 0;       
+        else if (inWord==0)    // We are not currently inside a word
+        {
+            inWord = 1;
+            count++;   // We found a new word so we increase word count
+        }
+
+        s++;    //Move to the next character in the string
+    }
+
+    return count;
+}
+
+int isPalindrome(const char* s)
+{
+    int i = 0;
+    int j = 0;
+
+    while (s[j] != '\0')
+        j++;
+
+    j = j - 1;    // so we are not in the last position '\0 '
+
+    while (i < j)
+    {
+        if (s[i] != s[j])
+            return 0;
+
+        i++;
+        j--;
+    }
+
+    return 1;
+}
+
+void removeChar(char* s, char c)
+{
+    int i = 0;
+    int j = 0;
+
+    while (s[i] != '\0')
+    {
+        if (s[i] != c)
+        {
+            s[j] = s[i];        //Copy the character at position i into position j of the string.
+            j++;
+        }
+
+        i++;
+    }
+
+    s[j] = '\0';
+}
 
