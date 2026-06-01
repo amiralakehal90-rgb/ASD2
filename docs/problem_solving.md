@@ -1,4 +1,32 @@
- ----------------- array -A- ---------------------------
+----------------- array -A- -------------------------
+  
+  ### fun 01 initArray
+Input: arr[] — the array, *size — pointer to the current element count.
+Output: Modifies the value pointed to by size to 0.
+Edge cases: None. The function safely resets the logical size regardless of the garbage values in memory.
+Algorithm
+. Access the memory location pointed to by size.
+. Assign the value 0 to this location.
+
+  ### fun 13 sumArray
+Input: arr[] — the array, size — element count.
+Output: Returns the sum of all elements as an integer.
+Edge cases: Array size of 0.
+Algorithm
+.Initialize an accumulator variable sum = 0.
+.Check if size == 0. If true, return 0.
+.Loop i from 0 to size - 1.
+.Add each element to the accumulator: sum += arr[i].
+.Return sum.
+
+  ### fun 14 averageArray
+Input: arr[], size.
+Output: Returns a double representing the arithmetic mean.
+Edge cases: size == 0 (must return 0.0).
+Algorithm
+.If size == 0, return 0.0.
+.Call sumArray(arr, size) and store in total.
+.Return (double)total / size.
 
   ### fun 15 Reverse Array
 Input: arr[]: An array . size: Number of elements in the array.
@@ -25,6 +53,25 @@ Algorithm:
 .Repeat until one array is fully processed.
 .Copy any remaining elements from the other array into out[].
 
+-------------------- array -B-  -------------
+
+  ### fun 01 initMatrix 
+Input: m[][MAX_COLS], *rows, *cols.
+Output: Reads dimensions and elements from user.
+Edge cases: Invalid dimensions (<=0 or >MAX).
+Algorithm
+.Prompt user for rows and cols. Validate bounds.
+.Use nested loops (i for rows, j for cols).
+.scanf into m[i][j].
+
+  ### fun 02 printMatrix
+Input: m[][MAX_COLS], rows, cols.
+Output: Prints matrix in a grid.
+Edge cases: 0 rows/cols.
+Algorithm
+.Loop i for rows, j for cols.
+.Print m[i][j] with fixed width (e.g., %4d).
+.Print newline \n after each row.
 
  -------------------- array -C-  -------------
 
@@ -58,10 +105,83 @@ Output :
 Algorithm:
 . Call free(arr) to release memory back to the system.
 
+-------------------- Linked List, Stack, Queue-------------
 
+--------Linked list--------
 
-------------------------- FILE ------------------------------------
-### fun 01 
+  ### fun 07: deleteByValue
+Input:
+List* L: Pointer to the list structure.
+int value: Value to delete.
+Output:
+int: Deleted value, or -1 if value not found.
+Algorithm
+.If list is empty, return -1.
+.If head's value equals value, call deleteBeginning.
+.Search for node preceding the node with value.
+.If value not found, return -1.
+.Store node to delete in temp.
+.Set current->next = temp->next.
+.Store temp->data in deletedValue.
+.Free temp.
+.Decrement L->size by 1.
+.Return deletedValue.
+### fun08: searchValue
+Input:
+List* L: Pointer to the list structure.
+int value: Value to search for.
+Output:
+SNode*: Pointer to node if found, NULL otherwise.
+Algorithm
+.Start from L->head.
+.For each node current in the list: 
+◦ If current->data == value, return current.
+.If value not found, return NULL.
+
+--------Doubly linked list--------
+
+  ### fun 05: displayForward
+Input:
+• DLL* L: Pointer to the doubly linked list structure.
+Output:
+• void: Prints list from head to tail.
+Algorithm
+.Start from L->head.
+.For each node current: 
+◦ Print current->data.
+◦ If current->next != NULL, print " <-> ".
+.Print " -> NULL".
+
+--------Stack--------
+
+  ### fun05: isEmpty / isFull
+Input:
+• Stack* S: Pointer to the stack structure.
+Output:
+• int: 1 if condition is true, 0 otherwise.
+Algorithm
+.Return (S->top == NULL) for isEmpty.
+.Try to allocate a temporary node for isFull.
+.If allocation fails, return 1.
+.Free the temporary node.
+.Return 0.
+
+--------Queue--------
+
+  ### fun 04 front / rear
+Input:
+• Queue* Q: Pointer to the queue structure.
+Output:
+• int: Front or rear element value, or -1 if queue is empty.
+Algorithm
+.If Q->front == NULL, return -1 for front.
+.Return Q->front->data.
+.If Q->rear == NULL, return -1 for rear.
+.Return Q->rear->data.
+
+------------------------- FILE --------------------
+
+  ### fun 01 
 Input:  filename
 Output : An integer: 0 for success, -1 for failure 
 Algorithm:
@@ -69,7 +189,34 @@ Algorithm:
 .If failed, Return -1
 .Else, Close file using fclose() and Return 0
 
-### fun 08 Binary File Copy 
+  ### fun 02: writeRecord
+Input:
+• const char* filename: File name.
+• Record* r: Pointer to the record to write.
+Output:
+• int: 0 if successful, -1 on error.
+Algorithm
+.Open in append-binary mode "ab".
+.Call fwrite(r, sizeof(Record), 1, fp).
+.Always fclose.
+.Return -1 on any error.
+
+
+  ### fun 03: readRecord
+Input:
+• const char* filename: File name.
+• int index: Record index.
+• Record* r: Pointer to store the record.
+Output:
+• int: 0 if successful, -1 on error.
+Algorithm
+.Open in "rb".
+.Seek to index * sizeof(Record) using fseek(fp, offset, SEEK_SET).
+.Read into r using fread.
+.Return -1 if index is out of range.
+
+
+  ### fun 08 Binary File Copy 
 Input: src , dest
 Output : '0' if the coping of file succesfully , '-1' if not 
 Algorithm:
@@ -79,8 +226,58 @@ Algorithm:
 .using 'fwrite' to read into 'dest'
 .Close both file pointers to save data
 
+------------------------ STRING ------------------
+  
+  ### fun 04: my_strcat
+Input:
+• char* dest: Destination string.
+• const char* src: Source string.
+Output:
+• char*: Pointer to dest.
+Algorithm
+.Find the end of dest (the '\0').
+.Copy src starting there.
+.The dest buffer must have enough room for both strings.
 
------------------------- STRING ----------------------------------
+  ### fun  05: my_strcmp
+Input:
+• const char* a: First string.
+• const char* b: Second string.
+Output:
+• int: Negative, 0, or positive value.
+Algorithm
+.Compare character by character.
+.Return the difference a[i] - b[i] at the first mismatch.
+.Return 0 if identical.
+
+  ### fun  06: my_strncmp
+Input:
+• const char* a: First string.
+• const char* b: Second string.
+• int n: Maximum number of characters to compare.
+Output:
+• int: Negative, 0, or positive value.
+Algorithm
+.Compare character by character.
+.Stop after n characters even if strings are longer.
+.Return the difference a[i] - b[i] at the first mismatch.
+.Return 0 if the first n characters are identical.
+
+  ### fun 10: countVowels / countConsonants
+Input:
+• const char* s: Input string.
+Output:
+• Number of vowels or consonants.
+Edge cases:
+• No vowels.
+• Mixed cases.
+• Numbers, symbols.
+Algorithm
+.Initialize count = 0.
+.Loop through s[i].
+.For countVowels, convert to lowercase logic and if 'a', 'e', 'i', 'o', or 'u', increment count.
+.For countConsonants, if character is a letter and not a vowel, increment count.
+.Return count.
 ### fun 14 : remove Spaces
 Input:   array of characters
 Output :  same string but without any whitespace
@@ -90,7 +287,7 @@ Algorithm:
 .Always move i until the end (\0)
 .Terminate the new string by placing a null character \0 at the final position of j
 
-### FUN 15 : substring
+  ### FUN 15 : substring
 Input:  Source , Index where the extraction begins , Number of characters to extract , where store the result
 Output : dest
 Algorithm:
@@ -99,7 +296,7 @@ Algorithm:
 .dest[len] = '\0' to mark the end of the string
 
 
-### FUN 15 : compare Ignore Case
+  ### FUN 15 : compare Ignore Case
 Input:  Two strings
 Output : .0: If the strings are identical (ignoring case)
          . integer: If the strings are different
@@ -107,7 +304,8 @@ Algorithm:
 .Convert the current character of both strings to lowercase using tolower()
 .If the lowercase characters are not equal, stop
 .If the loop ends, return the difference between the final characters (to ensure both strings ended at the same time)
-
+------------------------------------------------------------------------------------------------------------------
+----------------------------------------------------
 ## Function: insertAt
 
 ### Problem Understanding (An Example)
