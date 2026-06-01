@@ -38,7 +38,7 @@ int copyBinaryFile(const char* src, const char* dest) {
     return 0 ;
 }
 
-
+// fun:
 int createBinaryFile(const char* filename)
 {
     FILE *f = fopen(filename, "wb");
